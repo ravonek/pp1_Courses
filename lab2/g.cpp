@@ -1,26 +1,20 @@
-#include<iostream>
-#include<cmath>
-
+#include <iostream>
 
 using namespace std;
 
+int main() {
+  int n, k;
+  cin >> n >> k;
+  int result;
+  
+  if (n < k) {
+    result = 2;
+  } else if (2 * n % k != 0) {
+    result = 2 * n / k + 1;
+  } else {
+    result = 2 * n / k;
+  }
 
-int main()
-{
-    double a, b;
-    cin >> a >> b;
-    
-    int c;
-    
-    if(a / b == 2)
-    {
-        c = 2;
-    }
-    else
-    {
-        c = ceil ((a * 2) / b);
-    }
-    cout << c;
-
-    return 0;
+  cout << result;
+  return 0;
 }
