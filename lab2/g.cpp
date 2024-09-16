@@ -2,6 +2,39 @@
 
 using namespace std;
 
+/*
+
+#include<iostream>
+#include<cmath>
+
+
+using namespace std;
+
+
+int main()
+{
+
+    int n, k;
+    cin >> n >> k;
+   
+    if(n * 2 == k)
+    {
+        cout << 2;
+    }
+    else
+    {
+        cout << ceil((n * 2) / k);
+    }
+
+    return 0;
+}
+
+
+
+*/
+
+
+
 int main() {
   int n, k;
   cin >> n >> k;
