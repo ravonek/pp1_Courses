@@ -1,46 +1,38 @@
 #include <iostream>
+#include <deque>
+#include <climits>
 #include <stack>
+#include <vector>
 using namespace std;
 
 int main() {
     int n;
     cin >> n;
-
-    while (n--) {
-        int num;
-        cin >> num;
-        string binary;
-        
-        // Convert number to binary string
-        while (num > 0) {
-            binary = (num % 2 == 0 ? '0' : '1') + binary;
-            num /= 2;
+   
+    for (int i = 0; i < n; i++)
+    {
+        long long temp;
+        string s;
+        cin >> temp;
+        while (temp!=0)
+        {
+            s = to_string(temp%2) + s;
+            temp /=2;
         }
-        
-        // Stack to check if we can cross out all bits
-        stack<char> s;
-        bool isGood = true;
-        
-        for (char bit : binary) {
-            if (bit == '1') {
-                s.push(bit);  // Push '1' to stack
-            } else if (bit == '0') {
-                if (!s.empty() && s.top() == '1') {
-                    s.pop();  // Cross out '1' if it's the left neighbor
-                } else {
-                    isGood = false;  // Cannot cross out
-                    break;
-                }
-            }
+       
+        for (int j = 0; !s.empty() && j < s.length()-1;)
+        {
+            if (s[j] == '1' && s[j+1]== '0'){
+                s.erase(j,2);
+                j = 0;
+            } else j++;
         }
-        
-        // If stack is empty, it's a good number
-        if (isGood && s.empty()) {
+        if (s.empty()){
             cout << "YES" << endl;
-        } else {
-            cout << "NO" << endl;
-        }
+        } else cout << "NO" << endl;
+        
     }
-
+    
+    
     return 0;
 }
