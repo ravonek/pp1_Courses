@@ -1,60 +1,51 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <numeric> // Для std::accumulate
 
 using namespace std;
 
-// Comparator function
-bool compareRows(const vector<int>& row1, const vector<int>& row2) {
-    int sum1 = 0, sum2 = 0;
-
-    // Calculate sum of the rows
-    for (int i = 0; i < row1.size(); i++) sum1 += row1[i];
-    for (int i = 0; i < row2.size(); i++) sum2 += row2[i];
-
-    // Compare by sum of elements
-    if (sum1 != sum2) return sum1 < sum2;
-
-    // If sums are equal, compare by size of the rows
-    if (row1.size() != row2.size()) return row1.size() < row2.size();
-
-    // If size is also equal, compare lexicographically element by element
-    for (int i = 0; i < row1.size(); i++) {
-        if (row1[i] != row2[i]) {
-            return row1[i] < row2[i];
-        }
+// Пользовательский компаратор для сортировки
+bool comparator(const vector<int>& a, const vector<int>& b) {
+    // Сравнение по сумме элементов
+    int sumA = accumulate(a.begin(), a.end(), 0);
+    int sumB = accumulate(b.begin(), b.end(), 0);
+    if (sumA != sumB) {
+        return sumA < sumB;
     }
 
-    // If everything is equal, return true
-    return false;
+    // Сравнение по размеру строки
+    if (a.size() != b.size()) {
+        return a.size() < b.size();
+    }
+
+    // Сравнение по соответствующим элементам
+    return a < b; // Лексикографическое сравнение
 }
 
 int main() {
     int N;
-    cin >> N;  // Number of rows
+    cin >> N;
 
-    vector<vector<int> > matrix;
+    vector<vector<int> > arr(N);
 
-    // Input each row
+    // Считываем строки
     for (int i = 0; i < N; i++) {
         int M;
-        cin >> M;  // Size of the row
-        vector<int> row(M);
-
+        cin >> M;
+        arr[i].resize(M);
         for (int j = 0; j < M; j++) {
-            cin >> row[j];
+            cin >> arr[i][j];
         }
-
-        matrix[i] = row;
     }
 
-    // Sort the rows using the comparator
-    sort(matrix.begin(), matrix.end(), compareRows);
+    // Сортируем строки с помощью компаратора
+    sort(arr.begin(), arr.end(), comparator);
 
-    // Output the sorted matrix
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[i].size(); j++) {
-            cout << matrix[i][j] << " ";
+    // Выводим отсортированный массив
+    for (int i = 0; i < arr.size(); i++) { // Обычный цикл по индексам
+        for (int j = 0; j < arr[i].size(); j++) {
+            cout << arr[i][j] << " ";
         }
         cout << endl;
     }
